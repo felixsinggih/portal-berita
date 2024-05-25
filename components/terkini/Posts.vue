@@ -1,0 +1,20 @@
+<script setup lang="ts">
+import { getLatestPosts } from '~/services/wpgraphql/getLatestPosts'
+
+const config = useRuntimeConfig()
+
+const { data } = await getLatestPosts(Number(config.public.postsLimit))
+const res = (await data.value) as Posts
+</script>
+
+<template>
+  <div>
+    <div class="grid lg:grid-cols-2 gap-4 pt-6">
+      <PostCard
+        v-for="post in res.data.posts.nodes"
+        :key="post.slug"
+        :post="post"
+      />
+    </div>
+  </div>
+</template>

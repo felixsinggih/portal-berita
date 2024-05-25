@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   title: string
-  categories: PostCategory[] | null
+  categories?: PostCategory[] | null
 }>()
 </script>
 

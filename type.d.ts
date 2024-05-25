@@ -16,25 +16,30 @@ interface Category {
   }
 }
 
+// * fix
 interface Page {
-  slug: string
-  title: string
-  content: string
-  date: string
-  featuredImage: {
-    node: {
-      altText: string
-      mediaItemUrl: string
-      mediaDetails: {
-        height: number
-        width: number
+  data: {
+    page: {
+      slug: string
+      title: string
+      content: string
+      date: string
+      featuredImage: {
+        node: {
+          altText: string
+          mediaItemUrl: string
+          mediaDetails: {
+            height: number
+            width: number
+          }
+          mimeType: string
+        }
       }
-      mimeType: string
+      seo: {
+        metaDesc: string
+        focuskw: string
+      }
     }
-  }
-  seo: {
-    metaDesc: string
-    focuskw: string
   }
 }
 

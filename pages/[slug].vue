@@ -46,14 +46,12 @@ useJsonld(() => ({
         <!-- Right Sidebar -->
         <div class="lg:sticky lg:top-20 lg:w-2/5 lg:self-start">
           <div class="space-y-6">
-            <PostOther
+            <PostsOther
               :post-id="res.data.post.postId"
               :categories="res.data.post.categories.nodes"
             />
 
-            <PostLatestExclude
-              :post-id="res.data.post.postId"
-            />
+            <PostsLatestExclude :post-id="res.data.post.postId" />
           </div>
         </div>
       </div>

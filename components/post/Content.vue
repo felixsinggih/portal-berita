@@ -7,7 +7,7 @@ defineProps<{
 <template>
   <div>
     <div>Konten</div>
-    <!-- <div class="article" v-html="content" /> -->
+    <div class="article" v-html="content" />
   </div>
 </template>
 
