@@ -12,11 +12,18 @@ const res = (await data.value) as Posts
 </script>
 
 <template>
-  <div class="grid lg:grid-cols-2 gap-4 pt-6">
-    <PostCard
-      v-for="post in res.data.posts.nodes"
-      :key="post.slug"
-      :post="post"
+  <div>
+    <div class="grid lg:grid-cols-2 gap-4 pt-6">
+      <PostCard
+        v-for="post in res.data.posts.nodes"
+        :key="post.slug"
+        :post="post"
+      />
+    </div>
+
+    <LazyCategoryLoadMore
+      :slug="slug as string"
+      :info="res.data.posts.pageInfo"
     />
   </div>
 </template>
