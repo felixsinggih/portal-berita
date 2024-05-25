@@ -3,11 +3,11 @@ import { getPost } from '~/services/wpgraphql/getPost'
 
 const route = useRoute()
 const { data } = await getPost(route.params.slug as string)
-const responseData = ref<Post>(data.value as Post)
+const res = ref<Post>(data.value as Post)
 
 useSeoMeta({
-  title: responseData.value.data.post.seo.title,
-  description: responseData.value.data.post.seo.metaDesc,
+  title: res.value.data.post.seo.title,
+  description: res.value.data.post.seo.metaDesc,
 })
 
 useJsonld(() => ({
@@ -22,8 +22,41 @@ useJsonld(() => ({
 </script>
 
 <template>
-  <div>
-    <h1>{{ responseData?.data.post.title }}</h1>
-    <div v-html="responseData?.data.post.content" />
+  <div class="space-y-6">
+    <PostHeader
+      :title="res.data.post.title"
+      :slug="res.data.post.slug"
+      :date="res.data.post.date"
+      :categories="res.data.post.categories.nodes"
+      :author="res.data.post.author"
+    />
+
+    <div>
+      <div class="flex flex-col gap-6 lg:flex-row">
+        <!-- Main Content -->
+        <div class="w-full shrink-0 lg:w-3/5 text-gray-800 dark:text-gray-200">
+          <!-- Post Content -->
+          <div class="w-full mx-auto text-wrap">
+            <LazyPostContent
+              :content="res.data.post.content"
+            />
+          </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="lg:sticky lg:top-20 lg:w-2/5 lg:self-start">
+          <div class="space-y-6">
+            <PostOther
+              :post-id="res.data.post.postId"
+              :categories="res.data.post.categories.nodes"
+            />
+
+            <PostLatestExclude
+              :post-id="res.data.post.postId"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
