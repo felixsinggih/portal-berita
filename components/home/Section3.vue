@@ -8,7 +8,13 @@
       <LazyHomeLatestArticle3 />
     </div>
     <div class="w-full lg:w-2/5 space-y-6">
+      <!-- Ad Sidebar 1 -->
+      <LazyHomeAdSidebar3 />
+
+      <!-- Sports Article -->
       <LazyHomeSportsArticle />
+
+      <!-- Lifestyle Article -->
       <LazyHomeLifestyleArticle />
     </div>
   </div>
