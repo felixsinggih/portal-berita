@@ -15,8 +15,8 @@ const config = useRuntimeConfig()
             <div class="hidden sm:block">
               &nbsp;
             </div>
-            <div class="justify-start">
-              <ul class="text-gray-800 dark:text-gray-200 font-medium">
+            <div class="justify-start mr-4">
+              <ul class="text-gray-800 dark:text-gray-200 font-medium space-y-2">
                 <li>
                   <a href="/page/tentang-kami" class="hover:underline ">Tentang Kami</a>
                 </li>
@@ -32,7 +32,7 @@ const config = useRuntimeConfig()
               </ul>
             </div>
             <div class="justify-end">
-              <ul class="text-gray-800 dark:text-gray-200 font-medium">
+              <ul class="text-gray-800 dark:text-gray-200 font-medium space-y-2">
                 <li>
                   <a href="/page/pedoman-pemberitaan-media-siber" class="hover:underline ">
                     Pedoman Pemberitaan Media Siber
@@ -53,9 +53,19 @@ const config = useRuntimeConfig()
       <hr class="my-6 border-gray-300 sm:mx-auto dark:border-gray-700 lg:my-8">
 
       <div class="w-full sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-600 sm:text-center dark:text-gray-300">
-          <a href="/" class="hover:underline">{{ config.public.siteName }}</a>
-        </span>
+        <div class="flex items-center space-x-3">
+          <div class="text-sm text-gray-600 sm:text-center dark:text-gray-300">
+            <a href="/" class="hover:underline">{{ config.public.siteName }}</a>
+          </div>
+
+          <div class="text-sm text-gray-600 sm:text-center dark:text-gray-300">
+            <a href="https://zonaviral.com" class="hover:underline">Zona Viral</a>
+          </div>
+
+          <div class="text-sm text-gray-600 sm:text-center dark:text-gray-300">
+            <a href="https://skincarepedia.com" class="hover:underline">Skincarepedia</a>
+          </div>
+        </div>
 
         <div class="flex mt-4 sm:justify-center sm:mt-0 space-x-5">
           <a :href="config.public.urlFacebook" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">

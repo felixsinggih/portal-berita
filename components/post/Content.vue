@@ -1,21 +1,29 @@
 <script setup lang="ts">
-defineProps<{
-  content: string
-}>()
+const props = defineProps<{ content: string }>()
+
+const cleanedContent = removeStyleAttributes(props.content)
+
+function createModifiedHTML(html: string) {
+  const elements: any = []
+  const lines = html.split(`</p>`) // Pisahkan HTML menjadi bagian-bagian
+
+  lines.map(line => elements.push(line))
+
+  return elements
+}
+const modifiedHTML = createModifiedHTML(cleanedContent)
 </script>
 
 <template>
   <div>
-    <div>Konten</div>
-    <div class="article" v-html="content" />
+    <PostContentElement v-for="(element, index) in modifiedHTML" :key="index" :element="element" :index="index" />
   </div>
 </template>
 
-<style scoped>
+<style>
 .article p {
     margin-top: 0;
     margin-bottom: 0.75rem;
-    background-color: red;
 }
 
 .article figure {
