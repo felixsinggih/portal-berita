@@ -12,9 +12,9 @@ const res = (await data.value) as Posts
 </script>
 
 <template>
-  <div>
-    <div class="grid lg:grid-cols-2 gap-4 pt-6">
-      <PostCard
+  <div class="space-y-6">
+    <div class="grid lg:grid-cols-2 gap-6 pt-6">
+      <PostItemCard
         v-for="post in res.data.posts.nodes"
         :key="post.slug"
         :post="post"

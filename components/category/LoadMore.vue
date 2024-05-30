@@ -23,8 +23,8 @@ async function loadMore() {
 
 <template>
   <div class="space-y-6">
-    <div class="grid lg:grid-cols-2 gap-4">
-      <PostCard
+    <div class="grid lg:grid-cols-2 gap-6">
+      <PostItemCard
         v-for="post in posts"
         :key="post.slug"
         :post="post"

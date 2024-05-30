@@ -47,12 +47,14 @@ useJsonld(() => ({
       <!-- Right Sidebar -->
       <div class="lg:sticky lg:top-20 lg:w-2/5 lg:self-start">
         <div class="space-y-6">
-          <PostsOther
+          <!-- Other Article -->
+          <LazyPostOtherArticle
             :post-id="res.data.post.postId"
             :categories="res.data.post.categories.nodes"
           />
 
-          <PostsLatestExclude :post-id="res.data.post.postId" />
+          <!-- Latest Article -->
+          <LazyPostLatestArticleExclude :post-id="res.data.post.postId" />
         </div>
       </div>
     </div>

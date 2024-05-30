@@ -18,7 +18,7 @@ const res = (await data.value) as Posts
     </Heading>
 
     <div class="space-y-6">
-      <PostCard
+      <PostItemCard
         v-for="post in res.data.posts.nodes"
         :key="post.slug"
         :post="post"

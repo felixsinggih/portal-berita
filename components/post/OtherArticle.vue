@@ -19,7 +19,7 @@ const res = (await data.value) as Posts
     </Heading>
 
     <div class="space-y-6">
-      <PostCardSmall
+      <PostItemCardSmall
         v-for="post in res.data.posts.nodes.slice(3)"
         :key="post.slug"
         :post="post"

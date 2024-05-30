@@ -13,5 +13,5 @@ const getInnerHTML = computed(() => {
 </script>
 
 <template>
-  <div class="article" v-html="getInnerHTML" />
+  <div v-html="getInnerHTML" />
 </template>

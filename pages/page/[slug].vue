@@ -41,7 +41,8 @@ const res = (await data.value) as Page
       <!-- Right Sidebar -->
       <div class="lg:sticky lg:top-20 lg:w-2/5 lg:self-start">
         <div class="space-y-6">
-          <LazyPostsInPage />
+          <!-- Latest Article -->
+          <LazyPageLatestArticle />
         </div>
       </div>
     </div>
