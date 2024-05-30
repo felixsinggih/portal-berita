@@ -1,15 +1,14 @@
-// composables/useCarousel.ts
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
-export function useCarousel(images: string[]) {
+export function useCarousel(carouselItems: number) {
   const currentIndex = ref(0)
 
   const nextSlide = () => {
-    currentIndex.value = currentIndex.value === images.length - 1 ? 0 : currentIndex.value + 1
+    currentIndex.value = currentIndex.value === carouselItems - 1 ? 0 : currentIndex.value + 1
   }
 
   const prevSlide = () => {
-    currentIndex.value = currentIndex.value === 0 ? images.length - 1 : currentIndex.value - 1
+    currentIndex.value = currentIndex.value === 0 ? carouselItems - 1 : currentIndex.value - 1
   }
 
   let interval: ReturnType<typeof setInterval>

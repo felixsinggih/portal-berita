@@ -3,7 +3,7 @@ const props = defineProps<{ page: Page }>()
 
 const images = props.page.data.page.content.replace('<p>', '').replace('</p>', '').split(',')
 
-const { currentIndex, nextSlide, prevSlide } = useCarousel(images)
+const { currentIndex, nextSlide, prevSlide } = useCarousel(images.length)
 </script>
 
 <template>
