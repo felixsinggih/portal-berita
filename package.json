@@ -12,6 +12,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@google-analytics/data": "^4.7.0",
     "jsdom": "^24.1.0",
     "nuxt": "^3.11.2",
     "vue": "^3.4.27",

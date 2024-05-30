@@ -5,9 +5,9 @@
 <template>
   <div>
     <CategoryHeader
-      title="Terkini"
+      title="Terpopuler"
     />
 
-    <LazyTerkiniPosts />
+    <LazyTerpopulerPosts />
   </div>
 </template>

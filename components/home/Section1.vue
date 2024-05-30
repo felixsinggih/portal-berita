@@ -11,7 +11,7 @@
 
     <!-- Popular Article -->
     <div class="w-full lg:w-2/5">
-      <HomePopularArticle />
+      <LazyHomePopularArticle />
     </div>
   </div>
 </template>

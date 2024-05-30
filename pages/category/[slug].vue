@@ -14,6 +14,6 @@ const res = (await data.value) as Category
       :description="res.data.category.seo.metaDesc ?? res.data.category.description"
     />
 
-    <CategoryPosts :slug="res.data.category.slug" />
+    <LazyCategoryPosts :slug="res.data.category.slug" />
   </div>
 </template>

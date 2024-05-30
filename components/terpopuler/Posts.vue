@@ -13,29 +13,24 @@ const [analyticsJournalist, analyticsCC] = await Promise.all([analyticsJournalis
 arrValuesJournalist = analyticsJournalist.filter(item => deleteUrl(item[0]))
 arrValuesCC = analyticsCC.filter(item => deleteUrl(item[0]))
 
-const mergedArray = arrValuesJournalist.slice(0, 5).concat(arrValuesCC.slice(0, 2))
+const mergedArray = arrValuesJournalist.slice(0, 10).concat(arrValuesCC.slice(0, 10))
 const sortArray = mergedArray.sort((a, b) => b[1] - a[1])
 
 const urlArray: any = []
 sortArray.map((subarray: any) => urlArray.push(subarray[0]))
 
-const { data } = await getPostsByslugIn(JSON.stringify(urlArray).replaceAll('/', ''), 7)
+const { data } = await getPostsByslugIn(JSON.stringify(urlArray).replaceAll('/', ''), 20)
 const res = (await data.value) as Posts
 </script>
 
 <template>
-  <div class="space-y-4">
-    <Heading>
-      <a href="/terpopuler">
-        Terpopuler
-      </a>
-    </Heading>
-
-    <div v-for="(post, i) in res.data.posts.nodes" :key="post.slug" class="flex items-center mb-2">
-      <span class="text-2xl text-gray-800 dark:text-gray-200 font-bold italic opacity-70 me-3">#{{ i + 1 }}</span>
-      <a :href="`/${post.slug}`" class="font-semibold xl:font-bold text-gray-800 dark:text-gray-200 hover:underline">
-        {{ post.title }}
-      </a>
+  <div>
+    <div class="grid lg:grid-cols-2 gap-6 pt-6">
+      <PostItemCard
+        v-for="post in res.data.posts.nodes"
+        :key="post.slug"
+        :post="post"
+      />
     </div>
   </div>
 </template>

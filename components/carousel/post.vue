@@ -17,7 +17,7 @@ const { currentIndex, nextSlide, prevSlide } = useCarousel(props.posts.data.post
               width="740"
               height="512"
               :alt="post.featuredImage.node.altText"
-              class="w-full h-80 sm:h-96 lg:h-[34rem] xl:h-[30rem] object-cover rounded-md"
+              class="w-full h-80 sm:h-96 md:h-[30rem] lg:h-[34rem] xl:h-[32rem] object-cover rounded-md"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-blue-950 to-transparent flex items-end p-6 text-gray-200 rounded-md">
               <div class="space-y-3">
