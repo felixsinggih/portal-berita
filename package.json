@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "pm2:prod": "pm2 startOrRestart ecosystem.config.cjs --env production"
   },
   "dependencies": {
     "@google-analytics/data": "^4.7.0",
