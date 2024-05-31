@@ -1,32 +1,31 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
-
-const pageTitle = `Terpopuler - ${config.public.siteName}`
+const pageTitle = `Seputar Pemilu 2024 - ${config.public.siteName}`
 
 useHead({
-  link: [{ rel: 'canonical', href: `${config.public.siteUrl}/terpopuler` }],
+  link: [{ rel: 'canonical', href: `${config.public.siteUrl}/seputar-pemilu-2024` }],
 })
 
 useSeoMeta({
   title: pageTitle,
-  description: config.public.siteDescriptionMeta,
+  description: 'Seputar Pemilu 2024',
   ogLocale: 'id_ID',
   ogType: 'website',
   ogTitle: pageTitle,
-  ogDescription: config.public.siteDescriptionMeta,
-  ogUrl: `${config.public.siteUrl}/terpopuler`,
+  ogDescription: 'Seputar Pemilu 2024',
+  ogUrl: `${config.public.siteUrl}/seputar-pemilu-2024`,
   ogSiteName: config.public.siteName,
-  ogImageUrl: config.public.siteThumbnailUrl,
-  ogImageWidth: config.public.siteThumbnailWidth,
-  ogImageHeight: config.public.siteThumbnailHeight,
-  ogImageType: `image/${config.public.siteThumbnailImageType}` as ImageMimeType,
+  ogImageUrl: 'https://serayunews.pw/wp-content/uploads/2023/11/seputar-pemilu-2024.jpeg',
+  ogImageWidth: 1280,
+  ogImageHeight: 660,
+  ogImageType: 'image/jpeg',
   twitterCard: 'summary_large_image',
   twitterSite: config.public.twitterMetaName,
   twitterCreator: config.public.twitterMetaUsername,
   twitterTitle: pageTitle,
-  twitterDescription: config.public.siteDescriptionMeta,
-  twitterImage: config.public.siteThumbnailUrl,
-  keywords: config.public.terpopulerDescriptionMeta,
+  twitterDescription: 'Seputar Pemilu 2024',
+  twitterImage: 'https://serayunews.pw/wp-content/uploads/2023/11/seputar-pemilu-2024.jpeg',
+  keywords: 'pemilu, pemilu 2024',
 })
 
 useJsonld(() => ({
@@ -47,7 +46,7 @@ useJsonld(() => ({
     'name': pageTitle,
     'item': {
       '@type': 'WebPage',
-      '@id': `${config.public.siteUrl}/terpopuler`,
+      '@id': `${config.public.siteUrl}/seputar-pemilu-2024`,
       'name': pageTitle,
     },
   }],
@@ -57,9 +56,9 @@ useJsonld(() => ({
 <template>
   <div class="space-y-6">
     <CategoryHeader
-      title="Terpopuler"
+      title="Seputar Pemilu 2024"
     />
 
-    <LazyTerpopulerPosts />
+    <LazySeputarPemilu2024Posts />
   </div>
 </template>

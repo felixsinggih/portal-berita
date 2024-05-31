@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCategoryPostsBySlug } from '~/services/wpgraphql/getCategoryPostsBySlug'
+import { getAuthorPosts } from '~/services/wpgraphql/getAuthorPosts'
 
 const props = defineProps({
   slug: String,
@@ -7,7 +7,7 @@ const props = defineProps({
 
 const config = useRuntimeConfig()
 
-const { data } = await getCategoryPostsBySlug(props.slug as string, Number(config.public.postsLimit))
+const { data } = await getAuthorPosts(props.slug, Number(config.public.postsLimit))
 const res = (await data.value) as Posts
 </script>
 
@@ -20,10 +20,5 @@ const res = (await data.value) as Posts
         :post="post"
       />
     </div>
-
-    <LazyCategoryLoadMore
-      :slug="slug as string"
-      :info="res.data.posts.pageInfo"
-    />
   </div>
 </template>

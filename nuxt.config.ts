@@ -38,6 +38,7 @@ export default defineNuxtConfig({
       urlYoutube: process.env.URL_YOUTUBE,
       urlTiktok: process.env.URL_TIKTOK,
       postsLimit: process.env.POSTS_LIMIT,
+      googleSiteVerification: process.env.GOOGLE_SITE_VERIFICATION,
     },
   },
 })

@@ -1,3 +1,5 @@
+type ImageMimeType = 'image/jpeg' | 'image/png' | 'image/gif' | null | undefined
+
 // * fix
 // TODO have deprecated fields
 interface Category {
@@ -32,7 +34,7 @@ interface Page {
             height: number
             width: number
           }
-          mimeType: string
+          mimeType: ImageMimeType
         }
       }
       seo: {
@@ -64,7 +66,7 @@ interface Post {
       featuredImage: {
         node: {
           mediaItemUrl: string
-          mimeType: string
+          mimeType: ImageMimeType
           altText: string
           caption: string
           mediaDetails: {
@@ -121,7 +123,7 @@ interface MediaDetailSize {
   sourceUrl: string
   width: number
   height: number
-  mimeType: string
+  mimeType: ImageMimeType
 }
 
 // * fix
@@ -154,24 +156,30 @@ interface Tag {
   }
 }
 
+// * fix
+// TODO have deprecated fields
 interface Author {
-  userId: number
-  name: string
-  firstName: string
-  slug: string
-  description: string
-  avatar: {
-    url: string
-  }
-  seo: {
-    title: string
-    metaDesc: string
-    social: {
-      facebook: string
-      instagram: string
-      linkedIn: string
-      twitter: string
-      youTube: string
+  data: {
+    user: {
+      userId: number
+      name: string
+      firstName: string
+      slug: string
+      description: string
+      avatar: {
+        url: string
+      }
+      seo: {
+        title: string
+        metaDesc: string
+        social: {
+          facebook: string
+          instagram: string
+          linkedIn: string
+          twitter: string
+          youTube: string
+        }
+      }
     }
   }
 }

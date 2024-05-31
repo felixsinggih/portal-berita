@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { getCategoryPostsBySlug } from '~/services/wpgraphql/getCategoryPostsBySlug'
-
-const props = defineProps({
-  slug: String,
-})
+import { getTagPostsSlugIn } from '~/services/wpgraphql/getTagPostsSlugIn'
 
 const config = useRuntimeConfig()
 
-const { data } = await getCategoryPostsBySlug(props.slug as string, Number(config.public.postsLimit))
+const tags = ['seputar-pemilu-2024', 'pemilu-2024']
+const { data } = await getTagPostsSlugIn(JSON.stringify(tags), Number(config.public.postsLimit))
 const res = (await data.value) as Posts
 </script>
 
@@ -20,10 +17,5 @@ const res = (await data.value) as Posts
         :post="post"
       />
     </div>
-
-    <LazyCategoryLoadMore
-      :slug="slug as string"
-      :info="res.data.posts.pageInfo"
-    />
   </div>
 </template>
