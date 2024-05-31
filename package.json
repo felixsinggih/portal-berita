@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@google-analytics/data": "^4.7.0",
-    "jsdom": "^24.1.0",
+    "cheerio": "^1.0.0-rc.12",
     "nuxt": "^3.11.2",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
@@ -23,7 +23,6 @@
     "@nuxt/image": "^1.7.0",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.12.0",
-    "@types/jsdom": "^21.1.6",
     "eslint": "^9.2.0",
     "nuxt-icon": "^0.6.10",
     "nuxt-jsonld": "^2.0.8"

@@ -1,19 +1,9 @@
-import { JSDOM } from 'jsdom'
+import cheerio from 'cheerio'
 
-export default function removeStyleAttributes(html: string): string {
-  const dom = new JSDOM(html)
-  const doc = dom.window.document
+export default function removeStyleAttributes(html: any) {
+  const $ = cheerio.load(html)
 
-  const figureElements = doc.querySelectorAll('figure')
-  const imgElements = doc.querySelectorAll('img')
+  $('figure, img').removeAttr('style')
 
-  figureElements.forEach((figureElement: any) => {
-    figureElement.removeAttribute('style')
-  })
-
-  imgElements.forEach((imgElement: any) => {
-    imgElement.removeAttribute('style')
-  })
-
-  return doc.body.innerHTML
+  return $.html()
 }

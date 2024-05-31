@@ -16,11 +16,10 @@ const modifiedHTML = createModifiedHTML(cleanedContent)
 
 <template>
   <div class="article">
-    <PostContentElement
+    <div
       v-for="(element, index) in modifiedHTML"
       :key="index"
-      :element="element"
-      :index="index"
+      v-html="element"
     />
   </div>
 </template>
