@@ -22,7 +22,7 @@ const res = (await data.value) as Posts
     </div>
 
     <LazyCategoryLoadMore
-      :slug="slug as string"
+      :slug="(slug as string)"
       :info="res.data.posts.pageInfo"
     />
   </div>

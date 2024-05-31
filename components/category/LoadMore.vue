@@ -13,11 +13,18 @@ const loading = ref<boolean>(false)
 
 async function loadMore() {
   loading.value = true
-  const { data } = await getCategoryPostsBySlug(props.slug as string, Number(config.public.postsLimit), pageInfo.value.endCursor)
-  const res = (await data.value) as Posts
-  posts.value = [...posts.value, ...res.data.posts.nodes]
-  pageInfo.value = res.data.posts.pageInfo
-  loading.value = false
+  try {
+    const { data } = await getCategoryPostsBySlug(props.slug as string, Number(config.public.postsLimit), pageInfo.value.endCursor)
+    const res = (await data.value) as Posts
+    posts.value = [...posts.value, ...res.data.posts.nodes]
+    pageInfo.value = res.data.posts.pageInfo
+  }
+  catch (error) {
+    // console.error(error)
+  }
+  finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -32,7 +39,12 @@ async function loadMore() {
     </div>
 
     <div class="lg:col-span-2 flex items-center justify-center">
-      <button class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700" :disabled="loading" @click="loadMore">
+      <button
+        :class="[loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700']"
+        class="inline-flex items-center text-white font-medium rounded text-sm px-5 py-2"
+        :disabled="loading"
+        @click="loadMore"
+      >
         <div v-if="!loading" class="space-y-1">
           <Icon name="bi:arrow-down-circle" class="size-4" />
           Muat lainnya
