@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import googleApiRequest from '~/server/google/googleApiRequest'
+import googleApiRequest from '~/services/google/googleApiRequest'
 import { getPostsByslugIn } from '~/services/wpgraphql/getPostsByslugIn'
 
 let arrValuesJournalist = []
