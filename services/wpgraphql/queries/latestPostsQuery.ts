@@ -20,6 +20,7 @@ export default function latestPostsQuery(limit: number, endCursor: string | null
         date
         modified
         title(format: RENDERED)
+        excerpt(format: RENDERED)
         categories {
           nodes {
             name

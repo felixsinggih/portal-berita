@@ -136,13 +136,17 @@ interface Posts {
   }
 }
 
-interface PostsWithDescription {
-  nodes: [
-    PostList & {
-      excerpt: string
-    },
-  ]
-  pageInfo: PageInfo
+interface PostsWithExcerpt {
+  data: {
+    posts: {
+      nodes: [
+        PostList & {
+          excerpt: string | null
+        },
+      ]
+      pageInfo: PageInfo
+    }
+  }
 }
 
 interface Tag {
