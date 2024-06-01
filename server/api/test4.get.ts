@@ -1,4 +1,4 @@
-import googleService from '../googleService'
+import googleService from '~/server/google/googleService'
 import deleteUrl from '~/utils/deleteUrl'
 
 export default defineEventHandler(async () => {
