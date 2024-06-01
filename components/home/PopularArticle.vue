@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getPostsByslugIn } from '~/services/wpgraphql/getPostsByslugIn'
 
-const { data: urls } = await useFetch('/api/test')
+const { data: urls } = await useFetch('/api/popular')
 
 const { data } = await getPostsByslugIn(JSON.stringify(urls.value).replaceAll('/', ''), 7)
 const res = (await data.value) as Posts

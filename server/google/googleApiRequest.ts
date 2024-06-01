@@ -17,7 +17,7 @@ const analyticsDataClient = new BetaAnalyticsDataClient({
   },
 })
 
-export default async function googleService(limit: string, writerType: string) {
+export default async function googleApiRequest(limit: string, writerType: string) {
   const arrValues: any[] = []
 
   const response = await analyticsDataClient.runReport({
