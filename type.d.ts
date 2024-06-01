@@ -227,65 +227,71 @@ interface Sitemap {
 }
 
 interface CategorySitemap {
-  categoryId: number
-  name: string
-  slug: string
-  count: number
-  seo: {
-    metaDesc: string
-    breadcrumbs: [
-      {
-        text: string
-        url: string
-      },
-    ]
-    canonical: string
-    focuskw: string
-    metaKeywords: string
-    metaRobotsNofollow: string
-    metaRobotsNoindex: string
-    opengraphDescription: string
-    opengraphPublisher: string
-    opengraphSiteName: string
-    opengraphType: string
-    opengraphTitle: string
-    cornerstone: boolean
-    fullHead: string
-  }
-  posts: {
-    nodes: [
-      {
+  data: {
+    categories: {
+      nodes: {
+        categoryId: number
+        name: string
         slug: string
-        modified: string
-      },
-    ]
+        count: number
+        seo: {
+          metaDesc: string
+          breadcrumbs: [
+            {
+              text: string
+              url: string
+            },
+          ]
+          canonical: string
+          focuskw: string
+          metaKeywords: string
+        }
+        posts: {
+          nodes: [
+            {
+              slug: string
+              modified: string
+            },
+          ]
+        }
+      }[]
+    }
   }
 }
 
 interface AuthorSitemap {
-  name: string
-  slug: string
-  posts: {
-    nodes: [
-      {
+  data: {
+    users: {
+      nodes: {
+        name: string
         slug: string
-        modified: string
-      },
-    ]
+        posts: {
+          nodes: [
+            {
+              slug: string
+              modified: string
+            },
+          ]
+        }
+      }[]
+    }
   }
 }
 
 interface MediaItems {
-  nodes: [
-    {
-      sourceUrl: string
-      parent: {
-        node: {
-          uri: string
+  data: {
+    mediaItems: {
+      nodes:
+      {
+        sourceUrl: string
+        parent: {
+          node: {
+            uri: string
+          }
         }
-      }
-    },
-  ]
+      }[]
+    }
+  }
 }
 
 interface FeaturedImage {
