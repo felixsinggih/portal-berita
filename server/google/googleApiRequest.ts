@@ -1,11 +1,9 @@
+/* eslint-disable node/prefer-global/process */
 import { Buffer } from 'node:buffer'
 import { BetaAnalyticsDataClient } from '@google-analytics/data'
 
-const config = useRuntimeConfig()
-// const propertyId = process.env.GOOGLE_PROPERTY_ID
-// const applicationCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS
-const propertyId = config.googlePropertyId
-const applicationCredentials = config.googleApplicationCredentials
+const propertyId = process.env.GOOGLE_PROPERTY_ID
+const applicationCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS
 
 const credential = JSON.parse(
   Buffer.from(`${applicationCredentials}`, 'base64').toString(),

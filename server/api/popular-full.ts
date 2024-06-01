@@ -1,5 +1,5 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
-import googleApiRequest from '~/services/google/googleApiRequest'
+import googleApiRequest from '../google/googleApiRequest'
 import deleteUrl from '~/utils/deleteUrl'
 
 const router = createRouter()

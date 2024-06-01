@@ -1,4 +1,4 @@
-import googleApiRequest from '~/services/google/googleApiRequest'
+import googleApiRequest from '../google/googleApiRequest'
 import deleteUrl from '~/utils/deleteUrl'
 
 export default defineEventHandler(async () => {
