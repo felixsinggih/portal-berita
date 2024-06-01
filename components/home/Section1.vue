@@ -5,7 +5,7 @@
 <template>
   <div class="pt-4 flex flex-col gap-6 lg:flex-row">
     <!-- Headline -->
-    <div class="w-full lg:w3/5">
+    <div class="w-full lg:w-3/5">
       <HomeFeaturedArticle />
     </div>
 

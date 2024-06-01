@@ -15,6 +15,8 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    googlePropertyId: process.env.GOOGLE_PROPERTY_ID,
+    googleApplicationCredentials: process.env.GOOGLE_APPLICATION_CREDENTIALS,
     public: {
       graphqlEndpoint: process.env.GRAPHQL_ENDPOINT,
       siteUrl: process.env.SITE_URL,

@@ -5,16 +5,9 @@ import { BetaAnalyticsDataClient } from '@google-analytics/data'
 const propertyId = process.env.GOOGLE_PROPERTY_ID
 const applicationCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS
 
-let decodedCredentials
-if (typeof window === 'undefined') {
-  // Node.js environment
-  decodedCredentials = Buffer.from(`${applicationCredentials}`, 'base64').toString()
-}
-else {
-  // Browser environment
-  decodedCredentials = atob(`${applicationCredentials}`)
-}
-const credential = JSON.parse(decodedCredentials)
+const credential = JSON.parse(
+  Buffer.from(`${applicationCredentials}`, 'base64').toString()
+)
 
 const analyticsDataClient = new BetaAnalyticsDataClient({
   projectId: credential.projectId,
