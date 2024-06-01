@@ -1,11 +1,11 @@
-/* eslint-disable node/prefer-global/buffer */
-/* eslint-disable node/prefer-global/process */
+import { Buffer } from 'node:buffer'
 import { BetaAnalyticsDataClient } from '@google-analytics/data'
 import deleteUrl from '~/utils/deleteUrl'
 
 export default defineEventHandler(async () => {
-  const propertyId = process.env.GOOGLE_PROPERTY_ID
-  const applicationCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS
+  const config = useRuntimeConfig()
+  const propertyId = config.googlePropertyId
+  const applicationCredentials = config.googleApplicationCredentials
 
   const credential = JSON.parse(
     Buffer.from(`${applicationCredentials}`, 'base64').toString(),
