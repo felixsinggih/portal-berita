@@ -1,5 +1,5 @@
+/* eslint-disable node/prefer-global/buffer */
 /* eslint-disable node/prefer-global/process */
-import { Buffer } from 'node:buffer'
 import { BetaAnalyticsDataClient } from '@google-analytics/data'
 
 const propertyId = process.env.GOOGLE_PROPERTY_ID
