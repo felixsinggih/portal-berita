@@ -33,7 +33,9 @@ useSeoMeta({
 <template>
   <div>
     <HomeSection1 />
-    <LazyHomeSection2 />
-    <LazyHomeSection3 />
+    <ClientOnly>
+      <LazyHomeSection2 />
+      <LazyHomeSection3 />
+    </ClientOnly>
   </div>
 </template>
