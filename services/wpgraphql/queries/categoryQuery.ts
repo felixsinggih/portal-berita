@@ -1,6 +1,4 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getCategory(
+export default function categoryQuery(
   categorySlug: string,
 ) {
   const query = `{
@@ -17,6 +15,5 @@ export async function getCategory(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

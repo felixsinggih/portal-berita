@@ -1,6 +1,4 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getCategoryPostsNotIn(
+export default function categoryPostsNotInQuery(
   categoryIdArr: any,
   limit: number,
   endCursor: string | null = null,
@@ -49,6 +47,5 @@ export async function getCategoryPostsNotIn(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

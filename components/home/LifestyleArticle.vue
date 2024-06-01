@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { getCategoryPostsIn } from '~/services/wpgraphql/getCategoryPostsIn'
+import categoryPostsInQuery from '~/services/wpgraphql/queries/categoryPostsInQuery'
 
-const { data } = await getCategoryPostsIn([49679], 4, null)
-const res = (await data.value) as Posts
+const config = useRuntimeConfig()
+
+// * Lifestyle
+const categories = [49679]
+const query = categoryPostsInQuery(categories, 13)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

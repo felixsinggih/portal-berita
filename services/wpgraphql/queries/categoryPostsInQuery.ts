@@ -1,13 +1,11 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getCategoryPostsBySlug(
-  categorySlug: string,
+export default function categoryPostsInQuery(
+  categoryIdArr: any,
   limit: number,
   endCursor: string | null = null,
 ) {
   const query = `{
     posts(
-      where: {categoryName: "${categorySlug}", orderby: {field: DATE, order: DESC}}
+      where: {categoryIn: [${categoryIdArr}], orderby: {field: DATE, order: DESC}}
       after: "${endCursor}"
       first: ${limit}
     ) {
@@ -36,7 +34,7 @@ export async function getCategoryPostsBySlug(
         featuredImage {
           node {
             sourceUrl
-            altText    
+            altText
           }
         }
       }
@@ -49,6 +47,5 @@ export async function getCategoryPostsBySlug(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

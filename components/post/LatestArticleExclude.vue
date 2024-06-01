@@ -1,12 +1,20 @@
 <script setup lang="ts">
-import { getLatestPostsExclude } from '~/services/wpgraphql/getLatestPostsExclude'
+import latestPostsExcludeQuery from '~/services/wpgraphql/queries/latestPostsExcludeQuery'
 
 const props = defineProps<{
   postId: number
 }>()
 
-const { data } = await getLatestPostsExclude(props.postId, 6)
-const res = (await data.value) as Posts
+const config = useRuntimeConfig()
+
+const query = latestPostsExcludeQuery(props.postId, 6)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import { getCategoryPostsInExclude } from '~/services/wpgraphql/getCategoryPostsInExclude'
+import categoryPostsInExcludeQuery from '~/services/wpgraphql/queries/categoryPostsInExcludeQuery'
 
 const props = defineProps<{
   postId: number
   categories: PostCategory[]
 }>()
 
-const postCategories: number[] = props.categories.map(category => category.categoryId)
+const config = useRuntimeConfig()
 
-const { data } = await getCategoryPostsInExclude(postCategories.toString(), props.postId, 9)
-const res = (await data.value) as Posts
+const postCategories: number[] = props.categories.map(category => category.categoryId)
+const query = categoryPostsInExcludeQuery(postCategories.toString(), props.postId, 9)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

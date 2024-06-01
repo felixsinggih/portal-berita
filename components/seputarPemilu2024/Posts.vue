@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { getTagPostsSlugIn } from '~/services/wpgraphql/getTagPostsSlugIn'
+import tagPostsSlugInQuery from '~/services/wpgraphql/queries/tagPostsSlugInQuery'
 
 const config = useRuntimeConfig()
 
 const tags = ['seputar-pemilu-2024', 'pemilu-2024']
-const { data } = await getTagPostsSlugIn(JSON.stringify(tags), Number(config.public.postsLimit))
-const res = (await data.value) as Posts
+const query = tagPostsSlugInQuery(JSON.stringify(tags), Number(config.public.postsLimit))
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

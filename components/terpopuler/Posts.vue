@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import { getPostsByslugIn } from '~/services/wpgraphql/getPostsByslugIn'
+import postsBySlugInQuery from '~/services/wpgraphql/queries/postsBySlugInQuery'
+
+const config = useRuntimeConfig()
 
 const { data: urls } = await useFetch('/api/popular-full')
 
-const { data } = await getPostsByslugIn(JSON.stringify(urls.value).replaceAll('/', ''), 20)
-const res = (await data.value) as Posts
+const query = postsBySlugInQuery(JSON.stringify(urls.value).replaceAll('/', ''), 20)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

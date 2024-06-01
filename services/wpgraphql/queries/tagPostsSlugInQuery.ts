@@ -1,13 +1,11 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getSearch(
-  keyword: string,
+export default function tagPostsSlugInQuery(
+  tagSlugArray: any,
   limit: number,
   endCursor: string | null = null,
 ) {
   const query = `{
     posts(
-      where: {search: "${keyword}", orderby: {field: DATE, order: DESC}}
+      where: {tagSlugIn: ${tagSlugArray}, orderby: {field: DATE, order: DESC}}
       after: "${endCursor}"
       first: ${limit}
     ) {
@@ -49,6 +47,5 @@ export async function getSearch(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

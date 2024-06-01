@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { getPage } from '~/services/wpgraphql/getPage'
+import pageQuery from '~/services/wpgraphql/queries/pageQuery'
 
-const { data } = await getPage('ads-banner-2')
-const res = (await data.value) as Page
+const config = useRuntimeConfig()
+
+const query = pageQuery('ads-banner-2')
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Page
 </script>
 
 <template>

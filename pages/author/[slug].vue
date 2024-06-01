@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { getAuthor } from '~/services/wpgraphql/getAuthor'
+import authorQuery from '~/services/wpgraphql/queries/authorQuery'
 
 const route = useRoute()
 const config = useRuntimeConfig()
 
-const { data } = await getAuthor(route.params.slug as string)
-const res = (await data.value) as Author
+const query = authorQuery(route.params.slug as string)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Author
 
 if (!res.data.user) {
   throw createError({

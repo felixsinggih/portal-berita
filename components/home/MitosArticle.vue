@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { getSearch } from '~/services/wpgraphql/getSearch'
+import searchQuery from '~/services/wpgraphql/queries/searchQuery'
 
-const { data } = await getSearch('mitos', 5)
-const res = (await data.value) as Posts
+const config = useRuntimeConfig()
+
+const query = searchQuery('mitos', 5)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

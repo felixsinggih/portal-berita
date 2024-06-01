@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { getCategoryPostsBySlug } from '~/services/wpgraphql/getCategoryPostsBySlug'
+import categoryPostsBySlugQuery from '~/services/wpgraphql/queries/categoryPostsBySlugQuery'
 
-const { data } = await getCategoryPostsBySlug('headline', 5)
-const res = (await data.value) as Posts
+const config = useRuntimeConfig()
+
+const query = categoryPostsBySlugQuery('headline', Number(config.public.postsLimit))
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

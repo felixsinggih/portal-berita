@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getAuthorPosts } from '~/services/wpgraphql/getAuthorPosts'
+import authorPostsQuery from '~/services/wpgraphql/queries/authorPostsQuery'
 
 const props = defineProps({
   slug: String,
@@ -7,8 +7,14 @@ const props = defineProps({
 
 const config = useRuntimeConfig()
 
-const { data } = await getAuthorPosts(props.slug, Number(config.public.postsLimit))
-const res = (await data.value) as Posts
+const query = authorPostsQuery(props.slug as string, Number(config.public.postsLimit))
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

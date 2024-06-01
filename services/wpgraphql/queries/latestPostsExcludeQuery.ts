@@ -1,6 +1,4 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getLatestPostsExclude(
+export default function latestPostsExcludeQuery(
   excludeId: number,
   limit: number,
   endCursor: string | null = null,
@@ -49,6 +47,5 @@ export async function getLatestPostsExclude(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

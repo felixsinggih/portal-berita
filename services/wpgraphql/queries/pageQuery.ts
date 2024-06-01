@@ -1,6 +1,4 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getPage(
+export default function pageQuery(
   uri: string,
 ) {
   const query = `{
@@ -27,6 +25,5 @@ export async function getPage(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

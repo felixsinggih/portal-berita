@@ -1,6 +1,4 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getPost(postSlug: string) {
+export default function postQuery(postSlug: string) {
   const query = `{
     post(
       id: "${postSlug}",
@@ -71,6 +69,5 @@ export async function getPost(postSlug: string) {
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

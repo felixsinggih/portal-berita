@@ -1,13 +1,12 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getTagPostsSlugIn(
-  tagSlugArray: any,
+export default function categoryPostsInExcludeQuery(
+  categoryIdArr: any,
+  excludeId: number,
   limit: number,
   endCursor: string | null = null,
 ) {
   const query = `{
     posts(
-      where: {tagSlugIn: ${tagSlugArray}, orderby: {field: DATE, order: DESC}}
+      where: {categoryIn: [${categoryIdArr}], notIn: "${excludeId}", orderby: {field: DATE, order: DESC}}
       after: "${endCursor}"
       first: ${limit}
     ) {
@@ -49,6 +48,5 @@ export async function getTagPostsSlugIn(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

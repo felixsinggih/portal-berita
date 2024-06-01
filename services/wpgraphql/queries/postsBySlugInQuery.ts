@@ -1,15 +1,11 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getCategoryPostsIn(
-  categoryIdArr: any,
+export default function postsBySlugInQuery(
+  postSlugArray: any,
   limit: number,
-  endCursor: string | null = null,
 ) {
   const query = `{
     posts(
-      where: {categoryIn: [${categoryIdArr}], orderby: {field: DATE, order: DESC}}
-      after: "${endCursor}"
-      first: ${limit}
+      where: {nameIn: ${postSlugArray}, orderby: {field: NAME_IN, order: ASC}}
+            first: ${limit}
     ) {
       nodes {
         author {
@@ -36,7 +32,7 @@ export async function getCategoryPostsIn(
         featuredImage {
           node {
             sourceUrl
-            altText
+            altText    
           }
         }
       }
@@ -49,6 +45,5 @@ export async function getCategoryPostsIn(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

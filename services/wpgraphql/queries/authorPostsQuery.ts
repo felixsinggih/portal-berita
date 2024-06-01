@@ -1,7 +1,5 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getAuthorPosts(
-  authorNiceName: number,
+export default function authorPostsQuery(
+  authorNiceName: string,
   limit: number,
   endCursor: string | null = null,
 ) {
@@ -49,6 +47,5 @@ export async function getAuthorPosts(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

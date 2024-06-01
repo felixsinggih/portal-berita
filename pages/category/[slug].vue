@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { getCategory } from '~/services/wpgraphql/getCategory'
+import categoryQuery from '~/services/wpgraphql/queries/categoryQuery'
 
 const route = useRoute()
 const config = useRuntimeConfig()
 
-const { data } = await getCategory(route.params.slug as string)
-const res = (await data.value) as Category
+const query = categoryQuery(route.params.slug as string)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Category
 
 if (!res.data.category) {
   throw createError({

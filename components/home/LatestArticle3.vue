@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { getCategoryPostsNotIn } from '~/services/wpgraphql/getCategoryPostsNotIn'
+import categoryPostsNotInQuery from '~/services/wpgraphql/queries/categoryPostsNotInQuery'
 
 const config = useRuntimeConfig()
 
 // * Berita Ngapak [10 Pertama], Kilas Jateng, Olahraga, Lifestyle
 const categories = [30566, 30422, 67600, 30421, 49023, 67602, 67603, 30423, 67601, 49075, 57402, 40899, 49679]
-const { data } = await getCategoryPostsNotIn(categories, 12)
-const res = (await data.value) as Posts
+const query = categoryPostsNotInQuery(categories, 13)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

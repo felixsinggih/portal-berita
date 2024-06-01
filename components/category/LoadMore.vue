@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getCategoryPostsBySlug } from '~/services/wpgraphql/getCategoryPostsBySlug'
-
 const props = defineProps<{
   slug: string
   info: PageInfo
@@ -14,8 +12,8 @@ const loading = ref<boolean>(false)
 async function loadMore() {
   loading.value = true
   try {
-    const { data } = await getCategoryPostsBySlug(props.slug as string, Number(config.public.postsLimit), pageInfo.value.endCursor)
-    const res = (await data.value) as Posts
+    const { data } = await useFetch(`/api/category/${props.slug}?limit=${config.public.postsLimit}&endCursor=${pageInfo.value.endCursor}`)
+    const res = data.value as Posts
     posts.value = [...posts.value, ...res.data.posts.nodes]
     pageInfo.value = res.data.posts.pageInfo
   }

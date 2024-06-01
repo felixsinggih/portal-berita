@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCategoryPostsBySlug } from '~/services/wpgraphql/getCategoryPostsBySlug'
+import categoryPostsBySlugQuery from '~/services/wpgraphql/queries/categoryPostsBySlugQuery'
 
 const props = defineProps({
   slug: String,
@@ -7,8 +7,14 @@ const props = defineProps({
 
 const config = useRuntimeConfig()
 
-const { data } = await getCategoryPostsBySlug(props.slug as string, Number(config.public.postsLimit))
-const res = (await data.value) as Posts
+const query = categoryPostsBySlugQuery(props.slug as string, Number(config.public.postsLimit))
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Posts
 </script>
 
 <template>

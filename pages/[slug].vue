@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { getPost } from '~/services/wpgraphql/getPost'
+import postQuery from '~/services/wpgraphql/queries/postQuery'
 
 const route = useRoute()
 const config = useRuntimeConfig()
 
-const { data } = await getPost(route.params.slug as string)
-const res = (await data.value) as Post
+const query = postQuery(route.params.slug as string)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Post
 
 if (!res.data.post) {
   throw createError({

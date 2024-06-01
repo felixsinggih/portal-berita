@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { getPage } from '~/services/wpgraphql/getPage'
+import pageQuery from '~/services/wpgraphql/queries/pageQuery'
 
 const route = useRoute()
 const config = useRuntimeConfig()
 
-const { data } = await getPage(route.params.slug as string)
-const res = (await data.value) as Page
+const query = pageQuery(route.params.slug as string)
+const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+  method: 'get',
+  query: {
+    query,
+  },
+})
+const res = data.value as Page
 
 if (!res.data.page) {
   throw createError({

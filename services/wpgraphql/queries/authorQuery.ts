@@ -1,6 +1,4 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getAuthor(
+export default function authorQuery(
   authorSlug: string,
 ) {
   const query = `{
@@ -27,6 +25,5 @@ export async function getAuthor(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

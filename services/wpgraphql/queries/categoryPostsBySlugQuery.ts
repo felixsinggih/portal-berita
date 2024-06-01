@@ -1,14 +1,11 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getCategoryPostsInExclude(
-  categoryIdArr: any,
-  excludeId: number,
+export default function categoryPostsBySlugQuery(
+  categorySlug: string,
   limit: number,
   endCursor: string | null = null,
 ) {
   const query = `{
     posts(
-      where: {categoryIn: [${categoryIdArr}], notIn: "${excludeId}", orderby: {field: DATE, order: DESC}}
+      where: {categoryName: "${categorySlug}", orderby: {field: DATE, order: DESC}}
       after: "${endCursor}"
       first: ${limit}
     ) {
@@ -37,7 +34,7 @@ export async function getCategoryPostsInExclude(
         featuredImage {
           node {
             sourceUrl
-            altText
+            altText    
           }
         }
       }
@@ -50,6 +47,5 @@ export async function getCategoryPostsInExclude(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }

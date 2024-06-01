@@ -1,13 +1,13 @@
-import { graphqlRequest } from './graphqlRequest'
-
-export async function getPostsByslugIn(
-  postSlugArray: any,
+export default function searchQuery(
+  keyword: string,
   limit: number,
+  endCursor: string | null = null,
 ) {
   const query = `{
     posts(
-      where: {nameIn: ${postSlugArray}, orderby: {field: NAME_IN, order: ASC}}
-            first: ${limit}
+      where: {search: "${keyword}", orderby: {field: DATE, order: DESC}}
+      after: "${endCursor}"
+      first: ${limit}
     ) {
       nodes {
         author {
@@ -34,7 +34,7 @@ export async function getPostsByslugIn(
         featuredImage {
           node {
             sourceUrl
-            altText    
+            altText
           }
         }
       }
@@ -47,6 +47,5 @@ export async function getPostsByslugIn(
     }
   }`
 
-  const { data } = await graphqlRequest(query)
-  return { data }
+  return query
 }
