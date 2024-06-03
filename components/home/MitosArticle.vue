@@ -4,7 +4,7 @@ import searchQuery from '~/services/wpgraphql/queries/searchQuery'
 const config = useRuntimeConfig()
 
 const query = searchQuery('mitos', 5)
-const { data, pending, error } = await useFetch(`${config.public.graphqlEndpoint}`, {
+const { data, pending, error, execute } = await useFetch(`${config.public.graphqlEndpoint}`, {
   method: 'get',
   query: {
     query,
@@ -12,7 +12,17 @@ const { data, pending, error } = await useFetch(`${config.public.graphqlEndpoint
   key: `mitos-article`,
   cache: 'default',
 })
-const res = computed(() => data.value as Posts)
+
+const res = ref<Posts | null>(null)
+watchEffect(() => {
+  if (data.value) {
+    res.value = data.value as Posts
+  }
+})
+
+function retryFetch() {
+  execute()
+}
 </script>
 
 <template>
@@ -28,12 +38,12 @@ const res = computed(() => data.value as Posts)
     </div>
 
     <div v-else-if="error">
-      Error: {{ error.message }}
+      <ButtonRetryFetch :retry="retryFetch" />
     </div>
 
     <div v-else class="space-y-6">
       <PostItemCardSmall
-        v-for="post in res.data.posts.nodes"
+        v-for="post in res?.data.posts.nodes"
         :key="post.slug"
         :post="post"
       />
