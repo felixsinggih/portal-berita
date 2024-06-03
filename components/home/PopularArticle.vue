@@ -3,7 +3,10 @@ import postsBySlugInQuery from '~/services/wpgraphql/queries/postsBySlugInQuery'
 
 const config = useRuntimeConfig()
 
-const { data: urls } = await useFetch('/api/popular')
+const { data: urls } = await useFetch('/api/popular', {
+  method: 'get',
+  key: 'google-popular-urls',
+})
 
 const query = postsBySlugInQuery(JSON.stringify(urls.value).replaceAll('/', ''), 7)
 const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
@@ -11,6 +14,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `popular-article`,
 })
 const res = data.value as Posts
 </script>

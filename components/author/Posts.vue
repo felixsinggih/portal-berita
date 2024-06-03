@@ -13,6 +13,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `author-${props.slug}-posts`,
 })
 const res = data.value as Posts
 </script>

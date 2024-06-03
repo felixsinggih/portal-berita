@@ -10,6 +10,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `category-${route.params.slug}`,
 })
 const res = data.value as Category
 

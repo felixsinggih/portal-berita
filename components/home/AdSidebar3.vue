@@ -9,6 +9,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `ads-banner-3`,
 })
 const res = data.value as Page
 </script>

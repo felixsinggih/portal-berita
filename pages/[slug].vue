@@ -10,7 +10,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
-  key: route.params.slug as string,
+  key: `post-${route.params.slug}`,
 })
 const res = data.value as Post
 

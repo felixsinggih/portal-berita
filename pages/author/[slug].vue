@@ -10,6 +10,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `author-${route.params.slug}`,
 })
 const res = data.value as Author
 

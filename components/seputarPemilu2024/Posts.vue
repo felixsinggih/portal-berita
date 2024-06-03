@@ -10,6 +10,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `page-seputar-pemilu-2024-posts`,
 })
 const res = data.value as Posts
 </script>

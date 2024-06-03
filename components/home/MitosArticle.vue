@@ -9,6 +9,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `mitos-article`,
 })
 const res = data.value as Posts
 </script>

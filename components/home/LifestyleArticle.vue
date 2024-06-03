@@ -11,6 +11,7 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
   query: {
     query,
   },
+  key: `lifestyle-article`,
 })
 const res = data.value as Posts
 </script>
