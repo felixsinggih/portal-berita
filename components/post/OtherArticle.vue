@@ -3,6 +3,7 @@ import categoryPostsInExcludeQuery from '~/services/wpgraphql/queries/categoryPo
 
 const props = defineProps<{
   postId: number
+  slug: string
   categories: PostCategory[]
 }>()
 
@@ -10,13 +11,15 @@ const config = useRuntimeConfig()
 
 const postCategories: number[] = props.categories.map(category => category.categoryId)
 const query = categoryPostsInExcludeQuery(postCategories.toString(), props.postId, 9)
-const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+const { data, pending, error } = await useFetch(`${config.public.graphqlEndpoint}`, {
   method: 'get',
   query: {
     query,
   },
+  key: `other-articles-in-post-${props.slug}`,
+  cache: 'default',
 })
-const res = data.value as Posts
+const res = computed(() => data.value as Posts)
 </script>
 
 <template>
@@ -25,7 +28,15 @@ const res = data.value as Posts
       Artikel Lainnya
     </Heading>
 
-    <div class="space-y-6">
+    <div v-if="pending">
+      <LoadingPostsCardSmall />
+    </div>
+
+    <div v-else-if="error">
+      Error: {{ error.message }}
+    </div>
+
+    <div v-else class="space-y-6">
       <PostItemCardSmall
         v-for="post in res.data.posts.nodes.slice(3)"
         :key="post.slug"

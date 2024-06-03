@@ -6,22 +6,32 @@ const config = useRuntimeConfig()
 const { data: urls } = await useFetch('/api/popular-full', {
   method: 'get',
   key: 'google-terpopuler-urls',
+  cache: 'default',
 })
 
 const query = postsBySlugInQuery(JSON.stringify(urls.value).replaceAll('/', ''), 20)
-const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+const { data, pending, error } = await useFetch(`${config.public.graphqlEndpoint}`, {
   method: 'get',
   query: {
     query,
   },
   key: `page-terpopuler-posts`,
+  cache: 'default',
 })
-const res = data.value as Posts
+const res = computed(() => data.value as Posts)
 </script>
 
 <template>
   <div>
-    <div class="grid lg:grid-cols-2 gap-6">
+    <div v-if="pending">
+      <LoadingPostsCard />
+    </div>
+
+    <div v-else-if="error">
+      Error: {{ error.message }}
+    </div>
+
+    <div v-else class="grid lg:grid-cols-2 gap-6">
       <PostItemCard
         v-for="post in res.data.posts.nodes"
         :key="post.slug"

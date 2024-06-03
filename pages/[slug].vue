@@ -11,36 +11,37 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
     query,
   },
   key: `post-${route.params.slug}`,
+  cache: 'default',
 })
-const res = data.value as Post
+const res = computed(() => data.value as Post)
 
-if (!res.data.post) {
+if (!res.value.data.post) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found',
   })
 }
 
-const pageTitle = res.data.post.seo.title ?? res.data.post.title
-const pageDescription = res.data.post.seo.metaDesc !== '' ? res.data.post.seo.metaDesc : res.data.post.title
-const thumbnailUrl = res.data.post.featuredImage ? (res.data.post.featuredImage.node.mediaDetails.sizes ? res.data.post.featuredImage.node.mediaDetails.sizes[0].sourceUrl : res.data.post.featuredImage.node.mediaItemUrl) : config.public.siteThumbnailUrl
-const thumbnailWidth = res.data.post.featuredImage ? (res.data.post.featuredImage.node.mediaDetails.sizes ? res.data.post.featuredImage.node.mediaDetails.sizes[0].width : res.data.post.featuredImage.node.mediaDetails.width) : config.public.siteThumbnailWidth
-const thumbnailHeight = res.data.post.featuredImage ? (res.data.post.featuredImage.node.mediaDetails.sizes ? res.data.post.featuredImage.node.mediaDetails.sizes[0].height : res.data.post.featuredImage.node.mediaDetails.height) : config.public.siteThumbnailHeight
-const thumbnailType = res.data.post.featuredImage ? (res.data.post.featuredImage.node.mediaDetails.sizes ? res.data.post.featuredImage.node.mediaDetails.sizes[0].mimeType : res.data.post.featuredImage.node.mimeType) : `image/${config.public.siteThumbnailImageType}` as ImageMimeType
+const pageTitle = res.value.data.post.seo.title ?? res.value.data.post.title
+const pageDescription = res.value.data.post.seo.metaDesc !== '' ? res.value.data.post.seo.metaDesc : res.value.data.post.title
+const thumbnailUrl = res.value.data.post.featuredImage ? (res.value.data.post.featuredImage.node.mediaDetails.sizes ? res.value.data.post.featuredImage.node.mediaDetails.sizes[0].sourceUrl : res.value.data.post.featuredImage.node.mediaItemUrl) : config.public.siteThumbnailUrl
+const thumbnailWidth = res.value.data.post.featuredImage ? (res.value.data.post.featuredImage.node.mediaDetails.sizes ? res.value.data.post.featuredImage.node.mediaDetails.sizes[0].width : res.value.data.post.featuredImage.node.mediaDetails.width) : config.public.siteThumbnailWidth
+const thumbnailHeight = res.value.data.post.featuredImage ? (res.value.data.post.featuredImage.node.mediaDetails.sizes ? res.value.data.post.featuredImage.node.mediaDetails.sizes[0].height : res.value.data.post.featuredImage.node.mediaDetails.height) : config.public.siteThumbnailHeight
+const thumbnailType = res.value.data.post.featuredImage ? (res.value.data.post.featuredImage.node.mediaDetails.sizes ? res.value.data.post.featuredImage.node.mediaDetails.sizes[0].mimeType : res.value.data.post.featuredImage.node.mimeType) : `image/${config.public.siteThumbnailImageType}` as ImageMimeType
 
-const arrTag: string[] = res.data.post.tags ? res.data.post.tags.nodes.map(tag => tag.name) : [config.public.siteName as string]
-const categories = res.data.post.categories.nodes
+const arrTag: string[] = res.value.data.post.tags ? res.value.data.post.tags.nodes.map(tag => tag.name) : [config.public.siteName as string]
+const categories = res.value.data.post.categories.nodes
 const breadcrumbListItem2Name = `${categories[0].slug !== 'headline' ? categories[0].name : categories[1].name} - ${config.public.siteName}`
 
 useHead({
   link: [
-    { rel: 'canonical', href: `${config.public.siteUrl}/${res.data.post.slug}` },
-    { rel: 'author', href: `${config.public.siteUrl}/author/${res.data.post.author.node.slug}` },
+    { rel: 'canonical', href: `${config.public.siteUrl}/${res.value.data.post.slug}` },
+    { rel: 'author', href: `${config.public.siteUrl}/author/${res.value.data.post.author.node.slug}` },
   ],
   meta: [
-    { name: 'originalTitle', content: res.data.post.title },
+    { name: 'originalTitle', content: res.value.data.post.title },
     { name: 'thumbnailUrl', content: thumbnailUrl },
-    { name: 'pubdate', content: new Date(res.data.post.date).toISOString() },
+    { name: 'pubdate', content: new Date(res.value.data.post.date).toISOString() },
   ],
 })
 
@@ -51,7 +52,7 @@ useSeoMeta({
   ogType: 'article',
   ogTitle: pageTitle,
   ogDescription: pageDescription,
-  ogUrl: `${config.public.siteUrl}/${res.data.post.slug}`,
+  ogUrl: `${config.public.siteUrl}/${res.value.data.post.slug}`,
   ogSiteName: config.public.siteName,
   ogImageUrl: thumbnailUrl,
   ogImageWidth: thumbnailWidth,
@@ -63,8 +64,8 @@ useSeoMeta({
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
   twitterImage: thumbnailUrl,
-  keywords: res.data.post.seo.focuskw ? `${res.data.post.seo.focuskw},${arrTag.toString()}` : arrTag.toString(),
-  author: res.data.post.author.node.name,
+  keywords: res.value.data.post.seo.focuskw ? `${res.value.data.post.seo.focuskw},${arrTag.toString()}` : arrTag.toString(),
+  author: res.value.data.post.author.node.name,
 
 })
 
@@ -95,7 +96,7 @@ useJsonld(() => ({
     'name': pageTitle,
     'item': {
       '@type': 'WebPage',
-      '@id': `${config.public.siteUrl}/${res.data.post.slug}`,
+      '@id': `${config.public.siteUrl}/${res.value.data.post.slug}`,
       'name': pageTitle,
     },
   }],
@@ -104,8 +105,8 @@ useJsonld(() => ({
 useJsonld(() => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  'headline': res.data.post.seo.title ?? res.data.post.title,
-  'url': `${config.public.siteUrl}/${res.data.post.slug}`,
+  'headline': res.value.data.post.seo.title ?? res.value.data.post.title,
+  'url': `${config.public.siteUrl}/${res.value.data.post.slug}`,
   'image': thumbnailUrl,
   'thumbnailUrl': thumbnailUrl,
 }))
@@ -115,19 +116,19 @@ useJsonld(() => ({
   '@type': 'NewsArticle',
   'mainEntityOfPage': {
     '@type': 'WebPage',
-    '@id': `${config.public.siteUrl}/${res.data.post.slug}`,
+    '@id': `${config.public.siteUrl}/${res.value.data.post.slug}`,
   },
-  'headline': res.data.post.seo.title ?? res.data.post.title,
+  'headline': res.value.data.post.seo.title ?? res.value.data.post.title,
   'image': {
     '@type': 'ImageObject',
     'url': thumbnailUrl,
   },
-  'datePublished': new Date(res.data.post.date).toISOString(),
-  'dateModified': new Date(res.data.post.modified).toISOString(),
+  'datePublished': new Date(res.value.data.post.date).toISOString(),
+  'dateModified': new Date(res.value.data.post.modified).toISOString(),
   'author': {
     '@type': 'Person',
-    'name': res.data.post.author.node.name,
-    'url': `${config.public.siteUrl}/author/${res.data.post.author.node.slug}`,
+    'name': res.value.data.post.author.node.name,
+    'url': `${config.public.siteUrl}/author/${res.value.data.post.author.node.slug}`,
   },
   'publisher': {
     '@type': 'Organization',
@@ -137,7 +138,7 @@ useJsonld(() => ({
       'url': config.public.siteLogoUrl,
     },
   },
-  'description': res.data.post.seo.metaDesc !== '' ? res.data.post.seo.metaDesc : res.data.post.title,
+  'description': res.value.data.post.seo.metaDesc !== '' ? res.value.data.post.seo.metaDesc : res.value.data.post.title,
 }))
 </script>
 
@@ -170,11 +171,15 @@ useJsonld(() => ({
           <!-- Other Article -->
           <LazyPostOtherArticle
             :post-id="res.data.post.postId"
+            :slug="res.data.post.slug"
             :categories="res.data.post.categories.nodes"
           />
 
           <!-- Latest Article -->
-          <LazyPostLatestArticleExclude :post-id="res.data.post.postId" />
+          <LazyPostLatestArticleExclude
+            :post-id="res.data.post.postId"
+            :slug="res.data.post.slug"
+          />
         </div>
       </div>
     </div>

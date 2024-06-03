@@ -11,25 +11,26 @@ const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
     query,
   },
   key: `page-${route.params.slug}`,
+  cache: 'default',
 })
-const res = data.value as Page
+const res = computed(() => data.value as Page)
 
-if (!res.data.page) {
+if (!res.value.data.page) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found',
   })
 }
 
-const pageTitle = `${res.data.page.title} - ${config.public.siteName}`
-const pageDescription = res.data.page.seo.metaDesc !== '' ? res.data.page.seo.metaDesc : res.data.page.title
-const thumbnailUrl = res.data.page.featuredImage ? res.data.page.featuredImage.node.mediaItemUrl : config.public.siteThumbnailUrl
-const thumbnailWidth = res.data.page.featuredImage ? res.data.page.featuredImage.node.mediaDetails.width : config.public.siteThumbnailWidth
-const thumbnailHeight = res.data.page.featuredImage ? res.data.page.featuredImage.node.mediaDetails.width : config.public.siteThumbnailHeight
-const thumbnailType = res.data.page.featuredImage ? res.data.page.featuredImage.node.mimeType : `image/${config.public.siteThumbnailImageType}` as ImageMimeType
+const pageTitle = `${res.value.data.page.title} - ${config.public.siteName}`
+const pageDescription = res.value.data.page.seo.metaDesc !== '' ? res.value.data.page.seo.metaDesc : res.value.data.page.title
+const thumbnailUrl = res.value.data.page.featuredImage ? res.value.data.page.featuredImage.node.mediaItemUrl : config.public.siteThumbnailUrl
+const thumbnailWidth = res.value.data.page.featuredImage ? res.value.data.page.featuredImage.node.mediaDetails.width : config.public.siteThumbnailWidth
+const thumbnailHeight = res.value.data.page.featuredImage ? res.value.data.page.featuredImage.node.mediaDetails.width : config.public.siteThumbnailHeight
+const thumbnailType = res.value.data.page.featuredImage ? res.value.data.page.featuredImage.node.mimeType : `image/${config.public.siteThumbnailImageType}` as ImageMimeType
 
 useHead({
-  link: [{ rel: 'canonical', href: `${config.public.siteUrl}/page/${res.data.page.slug}` }],
+  link: [{ rel: 'canonical', href: `${config.public.siteUrl}/page/${res.value.data.page.slug}` }],
 })
 
 useSeoMeta({
@@ -39,7 +40,7 @@ useSeoMeta({
   ogType: 'article',
   ogTitle: pageTitle,
   ogDescription: pageDescription,
-  ogUrl: `${config.public.siteUrl}/page/${res.data.page.slug}`,
+  ogUrl: `${config.public.siteUrl}/page/${res.value.data.page.slug}`,
   ogSiteName: config.public.siteName,
   ogImageUrl: thumbnailUrl,
   ogImageWidth: thumbnailWidth,

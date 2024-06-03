@@ -23,7 +23,7 @@ const res = computed(() => data.value as Posts)
 <template>
   <div class="space-y-6">
     <div v-if="pending">
-      Loading...
+      <LoadingPostsCard />
     </div>
 
     <div v-else-if="error">

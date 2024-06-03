@@ -4,16 +4,27 @@ import categoryPostsBySlugQuery from '~/services/wpgraphql/queries/categoryPosts
 const config = useRuntimeConfig()
 
 const query = categoryPostsBySlugQuery('headline', Number(config.public.postsLimit))
-const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+const { data, pending, error } = await useFetch(`${config.public.graphqlEndpoint}`, {
   method: 'get',
   query: {
     query,
   },
   key: `featured-article`,
+  cache: 'default',
 })
-const res = data.value as Posts
+const res = computed(() => data.value as Posts)
 </script>
 
 <template>
-  <CarouselPost :posts="res" />
+  <div>
+    <div v-if="pending">
+      <div>Loading</div>
+    </div>
+
+    <div v-else-if="error">
+      Error: {{ error.message }}
+    </div>
+
+    <CarouselPost v-else :posts="res" />
+  </div>
 </template>
