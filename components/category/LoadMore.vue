@@ -13,9 +13,9 @@ async function loadMore() {
   loading.value = true
   try {
     const { data } = await useFetch(`/api/category/${props.slug}?limit=${config.public.postsLimit}&endCursor=${pageInfo.value.endCursor}`)
-    const res = data.value as Posts
-    posts.value = [...posts.value, ...res.data.posts.nodes]
-    pageInfo.value = res.data.posts.pageInfo
+    const res = computed(() => data.value as Posts)
+    posts.value = [...posts.value, ...res.value.data.posts.nodes]
+    pageInfo.value = res.value.data.posts.pageInfo
   }
   catch (error) {
     // console.error(error)

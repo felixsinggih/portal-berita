@@ -5,7 +5,7 @@ const route = useRoute()
 const config = useRuntimeConfig()
 
 const query = categoryQuery(route.params.slug as string)
-const { data } = await useFetch(`${config.public.graphqlEndpoint}`, {
+const { data, pending, error } = await useFetch(`${config.public.graphqlEndpoint}`, {
   method: 'get',
   query: {
     query,
@@ -77,7 +77,16 @@ useJsonld(() => ({
 
 <template>
   <div class="space-y-6">
+    <div v-if="pending">
+      Loading...
+    </div>
+
+    <div v-else-if="error">
+      Error: {{ error.message }}
+    </div>
+
     <CategoryHeader
+      v-else
       :title="res.data.category.name"
       :description="res.data.category.seo.metaDesc ?? res.data.category.description"
     />
